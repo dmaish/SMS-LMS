@@ -8,4 +8,9 @@ router.post(
     Authentication.register,
 );
 
+router.post(
+    '/login',
+    Authentication.login,
+)
+
 export default router;

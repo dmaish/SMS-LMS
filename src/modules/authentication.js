@@ -1,6 +1,8 @@
 import bcrypt from 'bcrypt';
 import User from '../database/models/user';
 import mongoose from 'mongoose';
+import jwt from 'jsonwebtoken';
+import jwtDecode from 'jwt-decode';
 
 
 export default class Authentication {
@@ -32,7 +34,6 @@ export default class Authentication {
         }
     );
         } catch(err) {
-            console.log('ydd');
             res.status(500)
             .json({
                 message: err,
@@ -41,7 +42,24 @@ export default class Authentication {
     }
 
 
-    async login(req, res){
-
+    static async login(req, res){
+    try {
+        const token = await jwt.sign({
+            name: req.body.name,
+            password: req.body.password,
+        },
+            'JWT_SECRET_KEY',
+            { expiresIn: "1h" }
+        );
+    
+        const { name } = jwtDecode(token);
+        res.status(200).json({
+            message: 'Successful login',
+            token
+        });
+        } catch (error) {
+        console.log(error);
+        }
+    
     }
 }
