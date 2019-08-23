@@ -26,7 +26,12 @@ export default class MessagesController {
 static async getAllReceivedMessages(req, res){
     try {
         const userPhoneNumber = req.body.userPhoneNumber;
-        const userMessages = Messages.find({recipientNumber: userPhoneNumber});
+        console.log('userphonenumber', userPhoneNumber);
+        const userMessages = await Messages.find({recipientNumber: userPhoneNumber}, (err, messages) => {
+            if(err){
+                console.error(err);
+            } 
+        });
         return res.status(200).json({
             notification: 'Received messages retrieval successful',
             userMessages,
@@ -37,9 +42,9 @@ static async getAllReceivedMessages(req, res){
     }
 }
 
-static async getAllSentMessages(){
+static async getAllSentMessages(req, res){
     const userPhoneNumber = req.body.userPhoneNumber;
-    const userMessages = Messages.find({senderNumber: userPhoneNumber});
+    const userMessages = await Messages.find({senderNumber: userPhoneNumber});
     return res.status(200).json({
         notification: 'Sent messages retrieval successful',
         userMessages,

@@ -7,5 +7,13 @@ router.post(
     '/',
     MessagesController.postMessage
 );
+router.get(
+    '/getAllReceivedMessages',
+    MessagesController.getAllReceivedMessages,
+);
+router.get(
+    '/getAllSentMessages',
+    MessagesController.getAllSentMessages,
+)
 
 export default router;

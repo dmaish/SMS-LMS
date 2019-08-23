@@ -6,6 +6,8 @@ import bodyParser from 'body-parser';
 import AuthRoute from '../src/routes/auth';
 import ContactsRoute from '../src/routes/contacts';
 import MessagesRoute from '../src/routes/messages';
+import UsersRoute from '../src/routes/users';
+
 const mongoose = require('mongoose');
 
 
@@ -24,6 +26,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/api/v1/auth', AuthRoute);
 app.use('/api/v1/contacts', ContactsRoute);
 app.use('/api/v1/messages', MessagesRoute);
+app.use('/api/v1/users', UsersRoute);
 
 app.get('/', (req, res) => res.send('Hello World!'))
 
